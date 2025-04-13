@@ -6,7 +6,7 @@ class Menu:
     def __init__(self, *,  chat_id):
         self.chat_id = chat_id
     
-    def show_main_menu(self, *, chat_id):
+    def show_main_menu(self):
         bot.send_photo(
         chat_id=self.chat_id,
         photo="https://img.freepik.com/premium-vector/wallet-with-money-credit-card_3482-6721.jpg",
@@ -21,7 +21,7 @@ class Menu:
     
     def show_all_assets(self, *, assets_info):
         user_assets = Assets(assets_info)
-        message_text = create_assets_message(user_assets=user_assets)
+        message_text = user_assets.create_assets_message()
 
         bot.send_message(chat_id=self.chat_id, text=message_text, reply_markup=back_to_main_menu_markup)
     
@@ -37,19 +37,3 @@ class Menu:
     
     
 
-def create_assets_message(*, user_assets):
-    text =(
-    f"This is your assets: \n"
-    "*{user_assets.overall_balance}*$ \n \n"
-    )
-    for wallet in user_assets.wallets:
-        wallet_name = wallet[0]
-        wallet_text = f"{wallet_name} \n"
-            
-        wallet_coins = wallet[1]
-        for name, asset_data in wallet_coins.items:
-            ammount = asset_data[0]
-            price = asset_data[1]
-            wallet_text += f"{name} : {ammount}   {price}$ \n"
-    
-    return text

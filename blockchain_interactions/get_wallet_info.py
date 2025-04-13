@@ -1,13 +1,12 @@
 import requests
 
-def get_info_about_wallet(*, wallet) -> list[int, list]:
-    url = f"https://production-api.mobula.io/api/1/wallet/portfolio?wallet={wallet}"
-    
+def get_info_about_wallet(*, wallet_address) -> list[int, list]:
+    url = f"https://production-api.mobula.io/api/1/wallet/portfolio?wallet={wallet_address}"
 
     try:
         responce = requests.get(url)
         data = responce.json()
-        tokens = data["data"]["assets"][0]["cross_chain_balances"]
+        tokens = data["data"]["assets"]
         
         if not tokens:
             return None
@@ -15,11 +14,13 @@ def get_info_about_wallet(*, wallet) -> list[int, list]:
         total_balance =  data["data"]["total_wallet_balance"]
         tokens_values = []
 
-        for key in tokens.keys():
-            ammount = tokens[key]["balance"]
-            tokens_values.append({"name": key, "ammount": ammount})
+        for asset in tokens:
+            name = asset["asset"]["name"]
+            ammount = asset["token_balance"]
+            ammount_in_usd = ammount * asset["price"]
+            tokens_values.append({name: [ammount, ammount_in_usd]})
         
-        return tokens_values
+        return [total_balance, tokens_values]
     except:
         print("Failed to get data from mobula")
         
