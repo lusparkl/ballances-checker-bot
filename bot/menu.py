@@ -35,5 +35,7 @@ class Menu:
     def delete_previous_message(self, *, message_id):
         bot.delete_message(chat_id=self.chat_id, message_id=message_id)
     
-    
+    def show_wallet_creation_message(self):
+        message = bot.send_message(chat_id=self.chat_id, text="Please, send your wallet address")
+        bot.register_next_step_handler(message, add_wallet)
 

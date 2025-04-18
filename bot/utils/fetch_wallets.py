@@ -1,7 +1,10 @@
 from blockchain_interactions.get_wallet_info import get_info_about_wallet
+from database.read_requests import get_all_wallets
 
 def get_assets(*, user_id):
-    pass
+    wallets = get_all_wallets(user_id=user_id)
+    assets = get_data_about_all_wallets(wallets=wallets)
+    return assets
 
 def get_data_about_all_wallets(*, wallets):
     # assets structure: [overall assets, {wallet name: [wallet overall assets, {coin: [ammount, value in $]}]}]
