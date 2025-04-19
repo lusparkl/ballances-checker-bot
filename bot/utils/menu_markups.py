@@ -11,7 +11,8 @@ back_to_main_menu_markup = quick_markup({"Back": {"callback_data": "back to main
 def create_delete_wallets_menu_markup(*, wallets):
     buttons_data = {}
     for name in wallets.keys():
-        buttons_data[name] = {"callback_data": f"delete user wallet {name}"}
+        buttons_data[name] = {"callback_data": name}
+    buttons_data["Back to main menu"] = {"callback_data": "back to main menu"}
     markup = quick_markup(buttons_data)
 
     return markup

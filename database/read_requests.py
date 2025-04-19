@@ -8,7 +8,7 @@ def is_user_exists(*, user_id):
         .execute()
     )
 
-    return True if response["data"] else False
+    return True if response.data else False
 
 def get_all_wallets(*, user_id):
     responce = (
@@ -18,4 +18,4 @@ def get_all_wallets(*, user_id):
         .execute()
     )
 
-    return responce["data"]
+    return responce.data
