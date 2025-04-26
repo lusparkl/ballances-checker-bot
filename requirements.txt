@@ -2,3 +2,4 @@ flask
 telebot
 python-dotenv
 supabase
+gunicorn
