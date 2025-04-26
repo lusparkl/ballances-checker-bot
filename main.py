@@ -1,8 +1,6 @@
-from bot.webhook_server import app
-import os
+import bot.commands
+import bot.callbacks_handling
+from bot.bot_initialization import bot
 
 if __name__ == "__main__":
-    print("Webhook server is running...")
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-
-
+    bot.infinity_polling()

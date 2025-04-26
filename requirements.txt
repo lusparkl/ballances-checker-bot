@@ -1,4 +1,3 @@
-flask
 telebot
 python-dotenv
 supabase
